@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080" # コンテナの8080ポートをホストの8080ポートにマッピング
+    volumes:
+      - ./static:/app/static # 静的ファイルをコンテナの/staticディレクトリにマウント
+      - ./data:/app/data # SQLiteデータベースファイルを格納するディレクトリをマウント
