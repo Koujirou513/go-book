@@ -29,12 +29,14 @@ func main() {
 	e := echo.New()
 
 	// ミドルウェアの設定
-	e.Use(middleware.Logger()) //リクエストに関する情報をログに記録する
+	e.Use(middleware.Logger())  //リクエストに関する情報をログに記録する
 	e.Use(middleware.Recover()) //エラーハンドリング。ハンドラーで発生したパニックをキャッチし、サーバーのクラッシュを防ぐ
 
 	//ルーティング
 	e.GET("/books", api.GetAllBooksHandler(db))
 	e.POST("/books", api.CreateBookHandler(db))
+	e.PUT("/books/:id", api.UpdateBookHandler(db))
+	e.DELETE("/books/:id", api.DeleteBookHandler(db))
 
 	// サーバーをポート 8080で起動
 	e.Logger.Fatal(e.Start(":8080"))

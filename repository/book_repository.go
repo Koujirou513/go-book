@@ -48,3 +48,35 @@ func CreateBook(db *sql.DB, title string, author string) (int64, error) {
 
 	return id, nil
 }
+
+// 本を更新する関数
+func UpdateBook(db *sql.DB, id int64, title string, author string) error {
+	stmt, err := db.Prepare("UPDATE books SET title = ?, author = ? WHERE id = ?")
+	if err != nil {
+		return err 
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(title, author, id)
+	if err != nil {
+		return err 
+	}
+
+	return nil
+}
+
+// 本を削除する関数
+func DeleteBook(db *sql.DB, id int64) error {
+	stmt, err := db.Prepare("DELETE FROM books WHERE id = ?")
+	if err != nil {
+		return err 
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(id)
+	if err != nil {
+		return err 
+	}
+
+	return nil 
+}
