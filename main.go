@@ -38,6 +38,8 @@ func main() {
 	e.PUT("/books/:id", api.UpdateBookHandler(db))
 	e.DELETE("/books/:id", api.DeleteBookHandler(db))
 
+	e.Static("/", "static")
+
 	// サーバーをポート 8080で起動
 	e.Logger.Fatal(e.Start(":8080"))
 
