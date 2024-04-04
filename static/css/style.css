@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.page-wrapper {
+    width: 100%;
+    padding: 0 40px;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.header {
+    text-align: center;
+}
+
+.main {
+    text-align: center;
+}
+
+.title {
+    color: green;
+}
