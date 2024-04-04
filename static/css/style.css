@@ -11,6 +11,14 @@
     margin: 0 auto;
 }
 
+.header {
+    text-align: center;
+}
+
+.main {
+    text-align: center;
+}
+
 .title {
-    color: red;
+    color: green;
 }

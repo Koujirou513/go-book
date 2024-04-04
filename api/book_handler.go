@@ -12,10 +12,10 @@ import (
 // すべての本を取得するためのハンドラー関数
 func GetAllBooksHandler(db *sql.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		// repository から本の一覧を取得
+		// データベースからすべての本を取得する
 		books, err := repository.GetAllBooks(db)
 		if err != nil {
-			// サーバーエラーを返す
+			// エラーが発生した場合、500サーバーエラーを返す
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
 		// 取得した本の一覧をJSONとして返す
