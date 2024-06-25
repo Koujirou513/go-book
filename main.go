@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"log"
+	"net/http"
 
 	"github.com/koujirou513/go-book/api"
 
@@ -39,10 +40,16 @@ func main() {
 	e.DELETE("/books/:id", api.DeleteBookHandler(db))
 
 	e.Static("/", "static")
+	e.GET("/health", healthCheckHandler)
 
 	// サーバーをポート 8080で起動
 	e.Logger.Fatal(e.Start(":8080"))
 
+}
+
+// ヘルスチェック用関数
+func healthCheckHandler(c echo.Context) error {
+	return c.String(http.StatusOK, "OK")
 }
 
 func initDB(db *sql.DB) error {

@@ -26,5 +26,8 @@ RUN go build -o /book-manager
 # 静的ファイルのディレクトリを指定（あなたのアプリケーションに合わせて変更してください）
 VOLUME ["/app/static"]
 
+# ポート番号を指定
+EXPOSE 8080
+
 # アプリケーションを実行
 CMD ["/book-manager"]
