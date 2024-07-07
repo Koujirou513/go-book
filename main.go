@@ -56,7 +56,7 @@ func healthCheckHandler(c echo.Context) error {
 
 func initDB(db *sql.DB) error {
 	createTableSQL := `CREATE TABLE IF NOT EXISTS books (
-		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		id INT PRIMARY KEY AUTO_INCREMENT,
 		title TEXT NOT NULL,
 		author TEXT NOT NULL
 	);`
