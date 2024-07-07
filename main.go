@@ -4,18 +4,20 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/koujirou513/go-book/api"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
-	_ "github.com/mattn/go-sqlite3" // SQLite3 driver
+	_ "github.com/go-sql-driver/mysql" // MySQL driver
 )
 
 func main() {
-	// SQLiteデータベースに接続
-	db, err := sql.Open("sqlite3", "./yourdatabase.db")
+	// MySQLデータベースに接続
+	dsn := os.Getenv("DB_USER") + ":" + os.Getenv("DB_PASSWORD") + "@tcp(" + os.Getenv("DB_HOST") + ":" + os.Getenv("DB_PORT") + ")/" + os.Getenv("DB_NAME")
+	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		log.Fatal(err)
 	}

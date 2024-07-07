@@ -8,3 +8,6 @@ services:
     volumes:
       - ./static:/app/static # 静的ファイルをコンテナの/staticディレクトリにマウント
       - ./data:/app/data # SQLiteデータベースファイルを格納するディレクトリをマウント
+    env_file:
+      - .env #RDS情報をenvファイルから読み込む
+
