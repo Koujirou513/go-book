@@ -5,7 +5,7 @@ FROM amd64/golang:1.22.0-alpine AS builder
 ENV CGO_ENABLED=1 GOOS=linux GOARCH=amd64
 
 # 必要なパッケージのインストール
-RUN apk add --no-cache gcc musl-dev sqlite-dev
+RUN apk add --no-cache gcc musl-dev
 
 # 作業ディレクトリを設定
 WORKDIR /app
@@ -27,7 +27,7 @@ RUN go build -o book-manager
 FROM alpine:3.18
 
 # SQLiteを実行するために必要なライブラリをインストール
-RUN apk add --no-cache sqlite-libs
+RUN apk add --no-cache mysql-client
 
 # 作業ディレクトリを設定
 WORKDIR /app
