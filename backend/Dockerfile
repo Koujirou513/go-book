@@ -1,8 +1,11 @@
-# ビルドステージ
-FROM amd64/golang:1.22.0-alpine AS builder
+# ローカル環境用
+FROM --platform=linux/arm64/v8 golang:1.22.0-alpine AS builder
+ENV CGO_ENABLED=1 GOOS=linux GOARCH=arm64
 
+# 本番用
+# FROM amd64/golang:1.22.0-alpine AS builder
 # クロスコンパイルの設定
-ENV CGO_ENABLED=1 GOOS=linux GOARCH=amd64
+# ENV CGO_ENABLED=1 GOOS=linux GOARCH=amd64
 
 # 必要なパッケージのインストール
 RUN apk add --no-cache gcc musl-dev
@@ -36,7 +39,7 @@ WORKDIR /app
 COPY --from=builder /app/book-manager /book-manager
 
 # 静的ファイルのディレクトリを指定
-VOLUME ["/app/static"]
+# VOLUME ["/app/static"]
 
 # ポート番号を指定
 EXPOSE 8080

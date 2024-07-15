@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/koujirou513/go-book/api"
 
@@ -17,7 +18,19 @@ import (
 func main() {
 	// MySQLデータベースに接続
 	dsn := os.Getenv("DB_USER") + ":" + os.Getenv("DB_PASSWORD") + "@tcp(" + os.Getenv("DB_HOST") + ":" + os.Getenv("DB_PORT") + ")/" + os.Getenv("DB_NAME")
-	db, err := sql.Open("mysql", dsn)
+
+	var db *sql.DB
+	var err error
+
+	for i := 0; i < 10; i++ {
+		db, err = sql.Open("mysql", dsn)
+		if err == nil {
+			break
+		}
+		log.Printf("Failed to connect to database (attempt %d): %s", i+1, err)
+		time.Sleep(2 * time.Second)
+	}
+	
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -34,6 +47,7 @@ func main() {
 	// ミドルウェアの設定
 	e.Use(middleware.Logger())  //リクエストに関する情報をログに記録する
 	e.Use(middleware.Recover()) //エラーハンドリング。ハンドラーで発生したパニックをキャッチし、サーバーのクラッシュを防ぐ
+	e.Use(middleware.CORS())    // CORSミドルウェア
 
 	//ルーティング
 	e.GET("/books", api.GetAllBooksHandler(db))
