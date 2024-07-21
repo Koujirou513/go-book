@@ -1,11 +1,11 @@
 # ローカル環境用
-FROM --platform=linux/arm64/v8 golang:1.22.0-alpine AS builder
-ENV CGO_ENABLED=1 GOOS=linux GOARCH=arm64
+# FROM --platform=linux/arm64/v8 golang:1.22.0-alpine AS builder
+# ENV CGO_ENABLED=1 GOOS=linux GOARCH=arm64
 
 # 本番用
-# FROM amd64/golang:1.22.0-alpine AS builder
+FROM amd64/golang:1.23-rc-alpine AS builder
 # クロスコンパイルの設定
-# ENV CGO_ENABLED=1 GOOS=linux GOARCH=amd64
+ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 
 # 必要なパッケージのインストール
 RUN apk add --no-cache gcc musl-dev
