@@ -1,4 +1,4 @@
-FROM node:20-bullseye AS builder
+FROM amd64/node:20-bullseye AS builder
 
 WORKDIR /app
 
@@ -10,10 +10,12 @@ RUN npm install npm@latest && npm install
 COPY . /app/
 
 # 開発用サーバー起動
-CMD [ "npm", "run", "dev" ]
+# CMD [ "npm", "run", "dev" ]
+
+RUN npm run build
 
 # 本番環境
-FROM nginx:alpine
+FROM amd64/nginx
 
 # ビルドしたReactアプリをNginxにコピー
 COPY --from=builder /app/dist /usr/share/nginx/html 
